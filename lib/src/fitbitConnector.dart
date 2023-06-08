@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_web_auth/flutter_web_auth.dart';
+import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:logger/logger.dart';
 
 import 'package:fitbitter/src/urls/fitbitAuthAPIURL.dart';
@@ -161,7 +161,7 @@ class FitbitConnector {
 
     // Perform authentication
     try {
-      final result = await FlutterWebAuth.authenticate(
+      final result = await FlutterWebAuth2.authenticate(
           url: fitbitAuthorizeFormUrl.url,
           callbackUrlScheme: callbackUrlScheme);
       //Get the auth code
