@@ -48,6 +48,22 @@ class FitbitCredentials {
           ..write(')'))
         .toString();
   } // toString
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'userID': userID,
+      'fitbitAccessToken': fitbitAccessToken,
+      'fitbitRefreshToken': fitbitRefreshToken,
+    };
+  }
+
+  factory FitbitCredentials.fromJson(Map<String, dynamic> json) {
+    return FitbitCredentials(
+      userID: json['userID'],
+      fitbitAccessToken: json['fitbitAccessToken'],
+      fitbitRefreshToken: json['fitbitRefreshToken'],
+    );
+  }
 } // FitbitCredentials
 
 /// [FitbitConnector] is a class that is in charge of managing the connection authorization
@@ -129,7 +145,7 @@ class FitbitConnector {
           },
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response!.statusCode == 401) {
         return false;
       }
@@ -243,5 +259,4 @@ class FitbitConnector {
       print(e);
     } // catch
   } // unauthorize
-
 } // FitbitConnector
