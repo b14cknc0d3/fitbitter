@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_web_auth_2: ^3.1.2
-  intl: ^0.18.1
+  intl: any
   logger: ^2.3.0
 
 dev_dependencies:
