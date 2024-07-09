@@ -51,7 +51,8 @@ abstract class FitbitDataManager {
           },
         ),
       );
-    } on DioException catch (e) {
+      // ignore: deprecated_member_use
+    } on DioError catch (e) {
       FitbitDataManager.manageError(e);
     } // try - catch
 
@@ -75,7 +76,8 @@ abstract class FitbitDataManager {
   } //_checkAccessToken
 
   /// Method that manages errors that could return from the Fitbit API.
-  static void manageError(DioException e) {
+  // ignore: deprecated_member_use
+  static void manageError(DioError e) {
     Map data = e.response!.data is String
         ? jsonDecode(e.response!.data)
         : e.response!.data;
