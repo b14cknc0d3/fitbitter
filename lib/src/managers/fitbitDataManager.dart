@@ -51,7 +51,7 @@ abstract class FitbitDataManager {
           },
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       FitbitDataManager.manageError(e);
     } // try - catch
 
@@ -75,26 +75,25 @@ abstract class FitbitDataManager {
   } //_checkAccessToken
 
   /// Method that manages errors that could return from the Fitbit API.
-  static void manageError(DioError e) {
+  static void manageError(DioException e) {
+    Map data = e.response!.data is String
+        ? jsonDecode(e.response!.data)
+        : e.response!.data;
     switch (e.response!.statusCode) {
       case 200:
         break;
       case 400:
-        throw FitbitBadRequestException(
-            message: e.response!.data['errors'][0]['message']);
+        throw FitbitBadRequestException(message: data['errors'][0]['message']);
       case 401:
         throw FitbitUnauthorizedException(
-            message: e.response!.data['errors'][0]['message']);
+            message: data['errors'][0]['message']);
       case 403:
-        throw FitbitForbiddenException(
-            message: e.response!.data['errors'][0]['message']);
+        throw FitbitForbiddenException(message: data['errors'][0]['message']);
       case 404:
-        throw FitbitNotFoundException(
-            message: e.response!.data['errors'][0]['message']);
+        throw FitbitNotFoundException(message: data['errors'][0]['message']);
       case 429:
         throw FitbitRateLimitExceededException(
-            message: e.response!.data['errors'][0]['message']);
+            message: data['errors'][0]['message']);
     } // switch
   } // manageError
-
 } // FitbitDataManager

@@ -99,7 +99,7 @@ class FitbitActivityData implements FitbitData {
       'activityId': activityId,
       'activityParentId': activityParentId,
       'calories': calories,
-      'dateOfMonitoring': dateOfMonitoring,
+      'dateOfMonitoring': dateOfMonitoring?.toIso8601String(),
       'description': description,
       'distance': distance,
       'duration': duration,
@@ -109,5 +109,4 @@ class FitbitActivityData implements FitbitData {
       'startTime': startTime,
     };
   } // toJson
-
 } // FitbitActivityData
